@@ -1,23 +1,46 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Signin from './components/Signin';
+import { Container } from 'react-bootstrap';
+import NavBar from './components/NavBar';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Login from './components/Login';
+import Home from './components/Home';
+import { AuthProvider } from './context/AuthContext';
+
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+      
+      <Router>
+      <AuthProvider>
+        <NavBar />
+        <Switch>
+          <Route path="/signin">
+            <Container className="d-flex align-item-center justify-content-center"
+              style={{ minHeight: "100vh" }}>
+              <div className="w-100" style={{ maxWidth: '400px' }}>
+                <Signin />
+              </div>
+            </Container>
+          </Route>
+          <Route path="/login">
+            <Container className="d-flex align-item-center justify-content-center"
+              style={{ minHeight: "100vh" }}>
+              <div className="w-100" style={{ maxWidth: '400px' }}>
+            <Login/>
+              </div>
+            </Container>
+          </Route>
+         <Route exact path="/home" component={Home}/>
+          
+        </Switch>
+        </AuthProvider>
+      </Router>
+
     </div>
   );
 }
